@@ -3,9 +3,9 @@ import {getBook, getBooks, updateBook, deleteBook, addBook} from './controller.t
 
 const router = new Router()
 router.get('/books', getBooks)
-    .get('/book/:isbn', getBook)
+    .get('/book/:id', getBook)
     .post('/books', addBook)
-    .put('/books/:isbn', updateBook)
-    .delete('/books/:isbn', deleteBook)
+    .put('/books/:id', updateBook)
+    .delete('/books/:id', deleteBook)
 
 export default router
