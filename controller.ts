@@ -1,19 +1,19 @@
 interface IBook {
-    isbn: string
+    id: string
     author: string;
     title: string
 }
 
 let books: Array<IBook> = [{
-    isbn: "1",
+    id: "1",
     author: "Robin Wieruch",
     title: "The Road to React",
 }, {
-    isbn: "2",
+    id: "2",
     author: "Kyle Simpson",
     title: "You Don't Know JS: Scope & Closures",
 }, {
-    isbn: "3",
+    id: "3",
     author: "Andreas A. Antonopoulos",
     title: "Mastering Bitcoin",
 }]
@@ -22,9 +22,9 @@ const getBooks = ({response}: {response: any}) => {
     response.body = books
 }
 
-const getBook = ({params, response}: {params: {isbn: string}; response: any}) => {
+const getBook = ({params, response}: {params: {id: string}; response: any}) => {
 
-    const book: IBook | undefined = searchBookByIsbn(params.isbn)
+    const book: IBook | undefined = searchBookByIsbn(params.id)
     if (book) {
         response.status = 200
         response.body = book
@@ -42,13 +42,13 @@ const addBook = async ({request, response}: {request: any; response: any}) => {
     response.status = 200
 }
 
-const updateBook = async ({params, request, response}: {params: {isbn: string}; request: any; response: any}) => {
-    let book: IBook | undefined = searchBookByIsbn(params.isbn)
+const updateBook = async ({params, request, response}: {params: {id: string}; request: any; response: any}) => {
+    let book: IBook | undefined = searchBookByIsbn(params.id)
     if (book) {
         const body = await request.body()
         const updateInfos: {author?: string; title?: string} = body.value
         book = {...book, ...updateInfos}
-        books = [...books.filter(book => book.isbn !== params.isbn), book]
+        books = [...books.filter(book => book.id !== params.id), book]
         response.status = 200
         response.body = {message: 'OK'}
     } else {
@@ -58,13 +58,13 @@ const updateBook = async ({params, request, response}: {params: {isbn: string}; 
 
 }
 
-const deleteBook = ({params, response}: {params: {isbn: string}; response: any}) => {
-    books = books.filter(book => book.isbn !== params.isbn)
+const deleteBook = ({params, response}: {params: {id: string}; response: any}) => {
+    books = books.filter(book => book.id !== params.id)
     response.body = {message: "OK"}
     response.status = 200
 }
 
 // return the book if found and undefined if not
-const searchBookByIsbn = (isbn: string): (IBook | undefined) => books.filter(book => book.isbn === isbn)[0]
+const searchBookByIsbn = (id: string): (IBook | undefined) => books.filter(book => book.id === id)[0]
 
 export {getBook, getBooks, addBook, updateBook, deleteBook}
