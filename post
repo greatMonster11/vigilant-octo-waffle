@@ -1,0 +1,4 @@
+curl --header "Content-Type: application/json" \
+    --request POST \
+    --data '{"isbn": "4", "name": "ben", "author": "me"}' \
+    http://localhost:7070/books
