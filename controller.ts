@@ -23,7 +23,6 @@ const getBooks = ({response}: {response: any}) => {
 }
 
 const getBook = ({params, response}: {params: {id: string}; response: any}) => {
-
     const book: IBook | undefined = searchBookByIsbn(params.id)
     if (book) {
         response.status = 200
